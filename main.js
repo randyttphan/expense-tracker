@@ -15,6 +15,34 @@ const dummyTransactions = [
 
 let transactions = dummyTransactions;
 
+//Adding transaction
+function addTransaction(e) {
+  e.preventDefault();
+
+  if (text.value.trim() === "" || amount.value.trim() === "") {
+    alert("Please add a text and amount");
+  } else {
+    const transaction = {
+      id: generateID(),
+      text: text.value,
+      amount: +amount.value
+    };
+
+    transactions.push(transaction);
+    addTransactionDOM(transaction);
+
+    //update our values
+    updateValues();
+    text.value = "";
+    amount.value = "";
+  }
+}
+
+//Generating random ID for transaction
+function generateID() {
+  return Math.floor(Math.random() * 100000000);
+}
+
 //Add transactions to DOM list
 function addTransactionDOM(transaction) {
   //Get sign
@@ -64,3 +92,6 @@ function init() {
 }
 
 init();
+
+//Event Listeners
+form.addEventListener("submit", addTransaction);
