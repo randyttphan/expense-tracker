@@ -6,6 +6,12 @@ const form = document.getElementById("form");
 const text = document.getElementById("text");
 const amount = document.getElementById("amount");
 
+var timestamp = new Date().getTime();
+var todate = new Date(timestamp).getDate();
+var tomonth = new Date(timestamp).getMonth() + 1;
+var toyear = new Date(timestamp).getFullYear();
+var original_date = tomonth + "/" + todate + "/" + toyear;
+
 // const dummyTransactions = [
 //   { id: 1, text: "Flower", amount: -20 },
 //   { id: 2, text: "Salary", amount: 300 },
@@ -60,11 +66,13 @@ function addTransactionDOM(transaction) {
 
   //Add class based on value
   item.classList.add(transaction.amount < 0 ? "minus" : "plus");
-
+  console.log(original_date);
   item.innerHTML = `
-        ${transaction.text} <span>${sign}${Math.abs(
+        ${original_date}<span></span>
+        ${transaction.text} 
+        ${sign}${Math.abs(
     transaction.amount
-  )}</span> <button class="delete-btn" onclick="removeTransaction(${
+  )} <button class="delete-btn" onclick="removeTransaction(${
     transaction.id
   })">x</button>
     `;
