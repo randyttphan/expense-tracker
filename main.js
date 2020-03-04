@@ -6,11 +6,11 @@ const form = document.getElementById("form");
 const text = document.getElementById("text");
 const amount = document.getElementById("amount");
 
-var timestamp = new Date().getTime();
-var todate = new Date(timestamp).getDate();
-var tomonth = new Date(timestamp).getMonth() + 1;
-var toyear = new Date(timestamp).getFullYear();
-var original_date = tomonth + "/" + todate + "/" + toyear;
+let timestamp = new Date().getTime();
+let todate = new Date(timestamp).getDate();
+let tomonth = new Date(timestamp).getMonth() + 1;
+let toyear = new Date(timestamp).getFullYear();
+let original_date = tomonth + "/" + todate + "/" + toyear;
 
 // const dummyTransactions = [
 //   { id: 1, text: "Flower", amount: -20 },
@@ -29,6 +29,7 @@ let transactions =
 //Adding transaction
 function addTransaction(e) {
   e.preventDefault();
+  let saveDate = original_date;
 
   if (text.value.trim() === "" || amount.value.trim() === "") {
     alert("Please add a text and amount");
@@ -36,7 +37,8 @@ function addTransaction(e) {
     const transaction = {
       id: generateID(),
       text: text.value,
-      amount: +amount.value
+      amount: +amount.value,
+      date: saveDate
     };
 
     transactions.push(transaction);
@@ -66,9 +68,8 @@ function addTransactionDOM(transaction) {
 
   //Add class based on value
   item.classList.add(transaction.amount < 0 ? "minus" : "plus");
-  console.log(original_date);
   item.innerHTML = `
-        ${original_date}<span></span>
+        ${transaction.date}<span></span>
         ${transaction.text} 
         ${sign}${Math.abs(
     transaction.amount
